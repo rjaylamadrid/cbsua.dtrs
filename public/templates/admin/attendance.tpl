@@ -1,0 +1,281 @@
+{extends file="layout.tpl"}
+{block name=content}
+<div id="cover-spin" style="display: none;"></div>
+<div class="my-3 my-md-5">
+    <div class="container">
+        <div class="dimmer active" id="loading_spinner" style="display: none;">
+            <div class="loader"></div>
+            <div class="dimmer-content"></div>
+        </div>
+        <div class="row row-cards" id="attendance-content">
+            <input type="hidden" id="month" value="<?php echo $req['month']; ?>">
+            <input type="hidden" id="year" value="<?php echo $req['year']; ?>">
+            <input type="hidden" id="period" value="<?php echo $req['period']; ?>">
+            <input type="hidden" id="emp_type" value="<?php echo $req['emp_type']; ?>">
+            <input type="hidden" id="emp_active" value="">
+            <div class="col-md-6 col-lg-3">
+      	        <div class="card">
+                    <div class="card-status bg-green"></div>
+      	        	<div class="card-header">
+                        <h3 class="card-title"><b>LIST</b> of Employees</h3>
+                    </div>
+      	        	<div id="employee-list" class="selectgroup selectgroup-vertical w-100 o-auto" style="max-height: 60rem;">
+                        <label class="selectgroup-item">
+                            <input type="radio" name="employee_id" value="0" class="selectgroup-input" checked="" onclick="init_dtr (0);">
+                            <span class="selectgroup-button" style="text-align: left;">Blank DTR</span>
+                        </label>
+      	        	  		{* <?php
+                          if ($req['emp_type']) {
+                            $type = 'AND eType_ID = '.$req['emp_type'];
+                          }
+                          if($req['emp_type'] == '0'){
+                            $type = 'AND (eType_ID = 1 OR eType_ID = 2 OR eType_ID = 3 OR eType_ID = 4)';
+                          }
+      	        	            $employees = exec_query ("SELECT EmployeeID, FirstName, LastName FROM tbl_employee WHERE ActiveStatus = 1 AND CampusID = '".$_SESSION['user']['CampusID']."' $type ORDER BY LastName ASC", $master);
+      	        	            for ($i = 0; $i < sizeof($employees); $i++) {
+      	        	        ?>
+      	        	  	    <label class="selectgroup-item">
+      	        	  	        <input type="radio" name="employee_id" value="<?php echo $employees[$i]['EmployeeID']; ?>" class="selectgroup-input" onclick="init_dtr (this.value);">
+      	        	  	        <span class="selectgroup-button" style="text-align: left;"><b><?php echo strtoupper ($employees[$i]['LastName']).'</b>, '.sentence_case ($employees[$i]['FirstName']); ?></span>
+      	        	  	    </label>
+      	        	  	    <?php } ?> *}
+      	        	</div>
+      	    	</div>
+   	    	</div>
+            <div class="col-md-6 col-lg-9">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group form-inline">
+                            <label style="display: inline-block;">Filter employee:&nbsp;</label>
+                            <select id="emp_type" class="form-control custom-select" onchange="load_employees (this.value);">
+                                <option value="">All employees</option>
+                                <option value="0">All regular/casual</option>
+                                {* <?php 
+                                    $emp_type = exec_query("SELECT * FROM tbl_employee_type",$master);
+                                    foreach ($emp_type as $value) {
+                                    $selected = $req['emp_type']==$value['etype_id']?'Selected':'';
+                                    echo "<option value='".$value['etype_id']."'".$selected.">".$value['etype_desc']."</option>";
+                                    }
+                                ?> *}
+                            </select>
+                            <div style="float: right;">
+                                <div class="item-action dropdown form-control">
+                                    <a href="javascript:void(0)" data-toggle="dropdown" class="icon" aria-expanded="false">
+                                        <i class="fe fe-settings"></i> Options
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; transform: translate3d(-181px, 20px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                        <a href="javascript:new_period()" class="dropdown-item">
+                                            <i class="dropdown-icon fe fe-calendar"></i> New period 
+                                        </a>
+                                        <a href="javascript:void(0)" class="dropdown-item">
+                                            <i class="dropdown-icon fe fe-refresh-cw"></i> Update attendance 
+                                        </a>
+                                        <a href="javascript:add_event()" class="dropdown-item">
+                                            <i class="dropdown-icon fe fe-bookmark"></i> Add event 
+                                        </a>
+                                        <a href="#" data-toggle="modal" data-target="#event-modal" class="dropdown-item">
+                                            <i class="dropdown-icon fe fe-bookmark"></i> Events 
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a id="generate_pdf" href="" target="_blank" class="dropdown-item">
+                                            <i class="dropdown-icon fe fe-printer"></i> Print all DTR
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" id="dtr" style="top: -20px;">
+                </div>
+   	        </div>
+   	    </div>
+        
+        <div class="card">
+            <div id="sync" class="card-body">
+                <input type="hidden" id="month" value="<?php echo $req['month']; ?>">
+                <input type="hidden" id="year" value="<?php echo $req['year']; ?>">
+                <div class="text-center">
+                    <p>Attendance not yet posted or uploaded.</p>
+                    <button onclick="sync_now()" class="btn btn-outline-primary">Update Attendance Now</button>
+                    <div id="sync-result">
+                    </div>
+                </div>
+            </div>
+        </div>
+   	</div>
+</div>
+
+<div class="modal fade margin-top-70" id="generate-dtr-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
+    <div class="modal-dialog" id="generate-dtr" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Generate DTR</h3>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <form action="" method="POST">
+                            <label style="display: inline-block;">Select DTR period:&nbsp;</label>
+                            <div class="form-group">
+                                <select name="dtr[period]" class="form-control custom-select">
+                                    <option value="1">First Half (1 - 15)</option>
+                                    <option value="2">Second Half (16 - 31)</option>
+                                    <option value="3">Whole Month (1 - 31)</option>
+                                </select>
+                            </div>
+                            <div class="form-group form-inline">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <select name="dtr[month]" class="form-control custom-select" style="width: 100%">
+                                            <option value="00" disabled="">Month</option>
+                                            {* <?php echo $req['month'] ? select_month ($req['month']) : select_month (); ?> *}
+                                            {select_month()}
+                                        </select>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="number" name="dtr[year]" class="form-control" placeholder="Year" value="<?php echo $frm['year'] ? $frm['year'] : date('Y'); ?>" style="width: 100%">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <select name="dtr[emp_type]" class="form-control custom-select">
+                                    <option value="">All employees</option>
+                                    <option value="0">All regular/casual</option>
+                                    {* <?php 
+                                        $emp_type = exec_query("SELECT * FROM tbl_employee_type",$master);
+                                        foreach ($emp_type as $value) {
+                                        echo "<option value='".$value['etype_id']."'>".$value['etype_desc']."</option>";
+                                        }
+                                    ?> *}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="custom-switch">
+                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+                                    <span class="custom-switch-indicator"></span>
+                                    <span class="custom-switch-description">Include inactive employees</span>
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <span style="float: right;">
+                                <input type="submit" class="btn btn-primary" name="init_attendance" value="Generate DTR">
+                                <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade margin-top-70" id="raw-data-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
+  <div class="modal-dialog" id="raw-data" role="document">
+
+  </div>
+</div>
+
+<div class="modal fade margin-top-70" id="add-event-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
+    <div class="modal-dialog" id="raw-data" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Add new event</h3>
+                </div>
+                <div class="card-body">
+                    <form action="" method="post" id="event">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" class="form-control" name="Event[EventName]" placeholder="Title Name" required>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 pl-0">
+                                <label>Date</label>
+                                <input type="date" class="form-control" name="Event[EventDate]" min ="<?php echo $date_start;?>" max ="<?php echo $date_end;?>" value="<?php echo $date_start;?>" required>
+                            </div>
+                            <div class="form-group col-md-6 pl-0">
+                                <label>DTR code</label>
+                                <select class="form-control" name="Event[dtc_no]" required>
+                                <option value="" selected disabled>Code</option>
+                                {* <?php
+                                    $dtc = exec_query("SELECT * FROM tbl_daily_time_code", $master);
+                                    foreach($dtc as $value){
+                                    echo "<option value='".$value['dtc_no']."'>".$value['dtc_code']."</option>";
+                                    }
+                                ?> *}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6 pl-0">
+                                <label>Time Start</label>
+                                <input type="text" class="form-control" placeholder="00:00" name="Event[EventTimeStart]" required autocomplete="off" maxlength="8">
+                            </div>
+                            <div class="form-group col-md-6 pr-0">
+                                <label>Time End</label>
+                                <input type="text" class="form-control" placeholder="00:00" name="Event[EventTimeEnd]" required autocomplete="off" maxlength="8">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <span style="float: right;">
+                                <input type="button" class="btn btn-primary" onclick="javascript:save_event('<?php echo $_SESSION['user']['CampusID'];?>')" value ="Submit">
+                                <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade margin-top-70" id="event-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
+    <div class="modal-dialog" role="document" style="max-width: 800px">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Events</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive dtr">
+                        <table class="order-table table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                <th>Event Name</th>
+                                <th>Date</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {* <?php
+                                $events = exec_query("SELECT * FROM tbl_event WHERE campus_id = '".$_SESSION['user']['CampusID']."' AND (EventDate between '".$date_start."' AND '".$date_end."') ORDER BY EventDate ASC",$master);
+                                foreach($events as $value){
+                                    echo "<tr><td>".$value['EventName']."</td><td>".$value['EventDate']."</td><td>".$value['EventTimeStart']."</td><td>".$value['EventTimeEnd']."</td><td></td></tr>";
+                                }
+                                ?> *}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade margin-top-70" id="update-log-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
+    <div class="modal-dialog" id="update-log" role="document" style="max-width: 600px;">
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    require(['bootstrap', 'jquery'], function () {
+        $(document).ready(function () {
+        $("#generate-dtr-modal").modal('show');
+        });
+    });
+</script>
+{/block}
