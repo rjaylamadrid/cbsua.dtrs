@@ -12,20 +12,20 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="HandheldFriendly" content="True">
         <meta name="MobileOptimized" content="320">
-        <link rel="icon" href="./favicon.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+        <link rel="icon" href="{$server}/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
 
         <title>{block name=title}CBSUA :: HRMS{/block}</title>
         <!-- Dashboard Core -->
-        <script src="./assets/js/require.min.js"></script>
+        <script src="{$server}/assets/js/require.min.js"></script>
         <script>
             requirejs.config({
                 baseUrl: '.',
                 waitSeconds: 0
             });
         </script>
-        <link href="./assets/css/style.css" rel="stylesheet" />
-        <script src="./assets/js/dashboard.js"></script> 
+        <link href="{$server}/assets/css/style.css" rel="stylesheet" />
+        <script src="{$server}/assets/js/dashboard.js"></script> 
     </head>
 <body class="">
     <div class="page">

@@ -1,6 +1,7 @@
 <?php
 use NoahBuscher\Macaw\Macaw;
 
+// Landing page
 Macaw::get('/', function () {
     header ("location: login");
 });
@@ -18,5 +19,8 @@ Macaw::get('/dashboard', 'Dashboard@index');
 
 // Employees
 Macaw::get('/employees', 'Employees@index');
+Macaw::get('/employees/profile/(:any)', 'Employees@show');
+Macaw::get('/employees/profile/(:any)/(:any)', 'Employees@show');
+
 
 Macaw::dispatch();

@@ -59,9 +59,8 @@ class Macaw {
    * Runs the callback for the given request
    */
   public static function dispatch(){
-    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $uri = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
     $method = $_SERVER['REQUEST_METHOD'];
-
     $searches = array_keys(static::$patterns);
     $replaces = array_values(static::$patterns);
 
