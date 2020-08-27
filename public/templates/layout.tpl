@@ -24,7 +24,7 @@
                 waitSeconds: 0
             });
         </script>
-        <link href="{$server}/assets/css/style.css" rel="stylesheet" />
+        <link href="{$server}/assets/css/dashboard.css" rel="stylesheet" />
         <script src="{$server}/assets/js/dashboard.js"></script> 
     </head>
 <body class="">
