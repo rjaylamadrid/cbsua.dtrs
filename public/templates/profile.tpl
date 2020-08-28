@@ -16,7 +16,7 @@
         }
         </style>
         <div class="row">
-{if $frm.view == "update"}
+{if $view == "update"}
             <div class="col-md-2">
                 <div class="list-group list-group-transparent mb-0">
                   <a href="?a={if $session.type == 'admin'}employees&show={/if}profile&tab={$frm.tab}" class="list-group-item list-group-item-action d-flex align-items-center active"><span class="icon mr-3"><i class="fe fe-back"></i></span> Back to profile</a>

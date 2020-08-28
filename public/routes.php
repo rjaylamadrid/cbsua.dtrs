@@ -19,8 +19,9 @@ Macaw::get('/dashboard', 'Dashboard@index');
 
 // Employees
 Macaw::get('/employees', 'Employees@index');
-Macaw::get('/employees/profile/(:any)', 'Employees@show');
-Macaw::get('/employees/profile/(:any)/(:any)', 'Employees@show');
-
+Macaw::get('/employees/profile/(:any)', 'Employees@profile');
+Macaw::get('/employees/update/(:any)', 'Employees@update');
+Macaw::get('/employees/profile/(:any)/(:any)', 'Employees@profile');
+Macaw::get('/employees/update/(:any)/(:any)', 'Employees@update');
 
 Macaw::dispatch();

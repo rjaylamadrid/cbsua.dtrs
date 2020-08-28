@@ -1,4 +1,4 @@
-{if $frm.view != "update"}
+{if $view != "update"}
     <div class="form-group" style="float: right;">
         <a href="?a=profile&tab={$frm.tab}&view=update" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
     </div>

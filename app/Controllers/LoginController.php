@@ -1,6 +1,8 @@
 <?php
 namespace Controllers;
 
+use Database\DB;
+
 class LoginController extends Controller {
     public function start () {}
     

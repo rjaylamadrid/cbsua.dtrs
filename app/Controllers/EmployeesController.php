@@ -2,6 +2,7 @@
 namespace Controllers;
 
 use Database\DB;
+use Profile;
 
 class EmployeesController extends Controller {
     public $employees;
@@ -30,14 +31,5 @@ class EmployeesController extends Controller {
             if ($employee['employee_id'] == $id) return $employee;
         }
         return;
-    }
-
-    public function employee ($id) {
-        $this->employee = DB::select ("SELECT a.first_name, a.middle_name, a.last_name, b.* FROM tbl_employee a, tbl_employee_status b WHERE a.employee_id = b.employee_id AND b.employee_id = ? GROUP BY a.employee_id", $id)[0];
-        return $this;
-    }
-
-    public function profile ($view) {
-        return DB::select ("SELECT * FROM $view WHERE employee_id = ?", $this->employee['employee_id'])[0];
     }
 }

@@ -9,9 +9,9 @@ class Login extends LoginController {
         $this->view->display ('login', $this->message);
     }
 
-    public function doLogin ($username, $password) {
-        if ($this->find ($username)) {
-            if ($this->verify ($password)) {
+    public function doLogin () {
+        if ($this->find ($_POST['username'])) {
+            if ($this->verify ($_POST['password'])) {
                 $_SESSION['user'] = ['employee_id' => $this->user['employee_id'],'campus_id'=>$this->user['campus_id']];
                 if ($this->user['privilege'] > 0){
                     $_SESSION['user']['is_admin'] = '1';
