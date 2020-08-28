@@ -8,10 +8,10 @@
             <div class="dimmer-content"></div>
         </div>
         <div class="row row-cards" id="attendance-content">
-            <input type="hidden" id="month" value="<?php echo $req['month']; ?>">
-            <input type="hidden" id="year" value="<?php echo $req['year']; ?>">
-            <input type="hidden" id="period" value="<?php echo $req['period']; ?>">
-            <input type="hidden" id="emp_type" value="<?php echo $req['emp_type']; ?>">
+            <input type="hidden" id="month" value="{$period.month}">
+            <input type="hidden" id="year" value="{$period.year}">
+            <input type="hidden" id="period" value="{$period.period}">
+            <input type="hidden" id="emp_type" value="{$period.emp_type}">
             <input type="hidden" id="emp_active" value="">
             <div class="col-md-6 col-lg-3">
       	        <div class="card">
@@ -24,21 +24,12 @@
                             <input type="radio" name="employee_id" value="0" class="selectgroup-input" checked="" onclick="init_dtr (0);">
                             <span class="selectgroup-button" style="text-align: left;">Blank DTR</span>
                         </label>
-      	        	  		{* <?php
-                          if ($req['emp_type']) {
-                            $type = 'AND eType_ID = '.$req['emp_type'];
-                          }
-                          if($req['emp_type'] == '0'){
-                            $type = 'AND (eType_ID = 1 OR eType_ID = 2 OR eType_ID = 3 OR eType_ID = 4)';
-                          }
-      	        	            $employees = exec_query ("SELECT EmployeeID, FirstName, LastName FROM tbl_employee WHERE ActiveStatus = 1 AND CampusID = '".$_SESSION['user']['CampusID']."' $type ORDER BY LastName ASC", $master);
-      	        	            for ($i = 0; $i < sizeof($employees); $i++) {
-      	        	        ?>
-      	        	  	    <label class="selectgroup-item">
-      	        	  	        <input type="radio" name="employee_id" value="<?php echo $employees[$i]['EmployeeID']; ?>" class="selectgroup-input" onclick="init_dtr (this.value);">
-      	        	  	        <span class="selectgroup-button" style="text-align: left;"><b><?php echo strtoupper ($employees[$i]['LastName']).'</b>, '.sentence_case ($employees[$i]['FirstName']); ?></span>
-      	        	  	    </label>
-      	        	  	    <?php } ?> *}
+                        {foreach $employees as $employee}
+      	        	  	<label class="selectgroup-item">
+      	        	  	    <input type="radio" name="employee_id" value="{$employee.employee_id}" class="selectgroup-input" onclick="init_dtr (this.value);">
+      	        	  	    <span class="selectgroup-button" style="text-align: left;"><b>{$employee.last_name|upper}, {$employee.first_name|upper}</b></span>
+                        </label>
+                        {/foreach}
       	        	</div>
       	    	</div>
    	    	</div>
@@ -105,72 +96,9 @@
         </div>
    	</div>
 </div>
-
-<div class="modal fade margin-top-70" id="generate-dtr-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
-    <div class="modal-dialog" id="generate-dtr" role="document">
-        <div class="modal-content">
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Generate DTR</h3>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <form action="" method="POST">
-                            <label style="display: inline-block;">Select DTR period:&nbsp;</label>
-                            <div class="form-group">
-                                <select name="dtr[period]" class="form-control custom-select">
-                                    <option value="1">First Half (1 - 15)</option>
-                                    <option value="2">Second Half (16 - 31)</option>
-                                    <option value="3">Whole Month (1 - 31)</option>
-                                </select>
-                            </div>
-                            <div class="form-group form-inline">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <select name="dtr[month]" class="form-control custom-select" style="width: 100%">
-                                            <option value="00" disabled="">Month</option>
-                                            {* <?php echo $req['month'] ? select_month ($req['month']) : select_month (); ?> *}
-                                            {select_month()}
-                                        </select>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <input type="number" name="dtr[year]" class="form-control" placeholder="Year" value="<?php echo $frm['year'] ? $frm['year'] : date('Y'); ?>" style="width: 100%">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <select name="dtr[emp_type]" class="form-control custom-select">
-                                    <option value="">All employees</option>
-                                    <option value="0">All regular/casual</option>
-                                    {* <?php 
-                                        $emp_type = exec_query("SELECT * FROM tbl_employee_type",$master);
-                                        foreach ($emp_type as $value) {
-                                        echo "<option value='".$value['etype_id']."'>".$value['etype_desc']."</option>";
-                                        }
-                                    ?> *}
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label class="custom-switch">
-                                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-                                    <span class="custom-switch-indicator"></span>
-                                    <span class="custom-switch-description">Include inactive employees</span>
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <span style="float: right;">
-                                <input type="submit" class="btn btn-primary" name="init_attendance" value="Generate DTR">
-                                <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
+{if !$period}
+{include file="admin/modal/attendance_period.tpl"}
+{/if}
 <div class="modal fade margin-top-70" id="raw-data-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
   <div class="modal-dialog" id="raw-data" role="document">
 
