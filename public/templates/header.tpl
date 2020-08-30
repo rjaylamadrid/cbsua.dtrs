@@ -46,10 +46,10 @@
                 <ul class="nav nav-tabs border-0 flex-column flex-lg-row">
                     {if $user.type == "admin"}
                         <li class="nav-item">
-                            <a href="{$server}/dashboard" class="nav-link {if $frm.a == 'dashboard'}active{/if}"><i class="fe fe-home"></i> Dashboard</a>
+                            <a href="{$server}/dashboard" class="nav-link {if $page == 'dashboard'}active{/if}"><i class="fe fe-home"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{$server}/employees" class="nav-link {if $frm.a == 'employees'}active{/if}"><i class="fe fe-users"></i> Employees</a>
+                            <a href="{$server}/employees" class="nav-link {if $page == 'employees'}active{/if}"><i class="fe fe-users"></i> Employees</a>
                         </li>
                         <li class="nav-item">
                             <a href="{$server}/payroll" class="nav-link {if $frm.a == 'payroll'}active{/if}"><i class="fe fe-edit-3"></i> Payroll</a>

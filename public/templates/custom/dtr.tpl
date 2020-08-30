@@ -25,28 +25,28 @@
         <tbody>
             {if $attendance}
             {foreach $attendance as $attn}
-            {if $attn.}
+            {if $attn}
             <tr class="">
-                <td><b>'.date_format($date, 'd').'</b></td>
-                <td>'.$row[0]['am_in'].'</td>
-                <td>'.$row[0]['am_out'].'</td>
-                <td>'.$row[0]['pm_in'].'</td>
-                <td>'.$row[0]['pm_out'].'</td>
-                <td>'.$row[0]['ot_in'].'</td>
-                <td>'.$row[0]['ot_out'].'</td>
-                <td>'.$row[0]['total_hours'].'</td>
-                <td>'.($row[0]['late'] + $row[0]['undertime']).'</td>
+                <td><b>{$attn.date|date_format:"%d"}</b></td>
+                <td>{$attn.am_in}</td>
+                <td>{$attn.am_out}</td>
+                <td>{$attn.pm_in}</td>
+                <td>{$attn.pm_out}</td>
+                <td>{$attn.ot_in}</td>
+                <td>{$attn.ot_out}</td>
+                <td>{$attn.total_hours}</td>
+                <td>{$attn.late + $attn.undertime}</td>
                 <td></td>
                 <td><a href="javascript:view_raw_data(\''.$id.'\', \''.date_format($date, 'Y-m-d').'\');" class="icon" title="View Raw Data"><i class="fe fe-eye"></i></a><a href="javascript:update_log(\''.$row[0]['no'].'\', \''.$id.'\',\''.date_format($date, 'Y-m-d').'\');" class="icon" title="Edit Log"><i class="fe fe-edit"></i></a></td>
             </tr>
             {else}
-                {if}
+                {if $attn.date|date_format:"%w" == 0 || $attn.date|date_format:"%w" == 7}
             <tr>
-                <td><b>'.date_format($date, 'd').'</b></td>
-                <td colspan="9" style="text-align: center; letter-spacing: 60px;">'.strtoupper(date_format($date, 'l')).'</td>
+                <td><b>{$attn.date|date_format:"%d"}</b></td>
+                <td colspan="9" style="text-align: center; letter-spacing: 60px;">{$attn.date|date_format:"%a"}</td>
                 <td><a href="javascript:view_raw_data(\''.$id.'\', \''.date_format($date, 'Y-m-d').'\');" class="icon" title="View Raw Data"><i class="fe fe-eye"></i></a><a href="javascript:update_log(\''.$row[0]['no'].'\', \''.$id.'\',\''.date_format($date, 'Y-m-d').'\');" class="icon" title="Edit Log"><i class="fe fe-edit"></i></a></td></tr>
                 {else}
-                <tr><td><b>'.date_format($date, 'd').'</b></td>
+                <tr><td><b>{$attn.date|date_format:"%d"}</b></td>
                 <td> : </td>
                 <td> : </td>
                 <td> : </td>
@@ -58,6 +58,8 @@
                 <td></td>
                 <td><a href="javascript:view_raw_data(\''.$id.'\', \''.date_format($date, 'Y-m-d').'\');" class="icon" title="View Raw Data"><i class="fe fe-eye"></i></a><a href="javascript:update_log(\''.$row[0]['no'].'\', \''.$id.'\',\''.date_format($date, 'Y-m-d').'\');" class="icon" title="Edit Log"><i class="fe fe-edit"></i></a></td></tr>';
                 {/if}
+            {/if}
+            {/foreach}
             {/if}
       </tbody>
     </table>

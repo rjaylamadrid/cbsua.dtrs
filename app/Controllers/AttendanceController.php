@@ -8,10 +8,6 @@ use DatePeriod;
 
 class AttendanceController extends Controller {
     private $period = [[1, 15], [16, 31], [1, 31]];
-
-    public function start () {
-        if (!$this->user) header ("location: login");
-    }
     
     public function attendance ($id, $period) {
         $table = $period['month'].'-'.$period['year'];

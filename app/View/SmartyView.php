@@ -4,25 +4,24 @@ namespace View;
 use Smarty;
 
 class SmartyView {
-    public $smarty;
+    private $smarty;
 
     public function __construct () {
-        $smarty = new Smarty();
-        $smarty->setTemplateDir('templates');
-        $smarty->setCompileDir('templates_c');
-        $this->smarty = $smarty;
+        $this->smarty = new Smarty();
+        $this->smarty->setTemplateDir('templates');
+        $this->smarty->setCompileDir('templates_c');
     }
 
-    public function display ($name, $vars = null) {
+    public function display ($tpl, $vars = null) {
         if ($vars) $this->assign ($vars);
-        $this->smarty->display ("$name.tpl");
-        return;
+        $this->smarty->display ("$tpl.tpl");
     }
 
     public function assign ($vars) {
-        foreach ($vars as $key => $value) {
-            $this->smarty->assign ($key, $value);
-        }
-        return;
+        foreach ($vars as $key => $value) $this->smarty->assign ($key, $value);
+    }
+
+    public function render () {
+
     }
 }

@@ -4,20 +4,19 @@ use Controllers\LoginController;
 class Login extends LoginController {
     private $message;
 
-    public function index () {
-        if ($_SESSION['user']) header ("location: dashboard");
-        $this->view->display ('login', $this->message);
+    public function __construct () {
+        parent::__construct ();
     }
 
-    public function doLogin () {
+    public function index () {
+        if ($_SESSION['user']) header ("location: /dashboard");
+        $this->view->display ('login', ["message" => $this->message]);
+    }
+
+    public function do_login () {
         if ($this->find ($_POST['username'])) {
             if ($this->verify ($_POST['password'])) {
-                $_SESSION['user'] = ['employee_id' => $this->user['employee_id'],'campus_id'=>$this->user['campus_id']];
-                if ($this->user['privilege'] > 0){
-                    $_SESSION['user']['is_admin'] = '1';
-                    $_SESSION['user']['type'] = 'admin';
-                }
-                header ("location: dashboard");
+                $this->save_session ();
             } else {
                 $this->message = ["error" => ["message" => "Incorrect password."]];
             }

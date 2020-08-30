@@ -1,6 +1,7 @@
 <?php
+use Controllers\AttendanceController;
 
-class Attendance extends Controllers\AttendanceController {
+class Attendance extends AttendanceController {
     public function index () {
         $this->view->display ('attendance');
     }
@@ -10,7 +11,7 @@ class Attendance extends Controllers\AttendanceController {
         $this->view->display ('attendance', ["period" => $_POST['dtr'], "employees" => $employees]);
     }
 
-    public function getAttendance () {
+    public function get_attendance () {
         $data = $_POST;
         if ($data['id'] != 0);
         $attendance = $this->attendance ($data['id'], ["month" => $data['month'], "year" => $data['year'], "period" => ($data['period'] - 1)]);
