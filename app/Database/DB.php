@@ -19,7 +19,7 @@ class DB {
         return $query;
     }
     public static function select () {
-        return self::query (func_get_args ())->fetchAll();
+        return self::query (func_get_args ())->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function insert () {
         return self::query (func_get_args ())->lastInsertID();

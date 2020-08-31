@@ -15,6 +15,6 @@ class Attendance extends AttendanceController {
         $data = $_POST;
         if ($data['id'] != 0);
         $attendance = $this->attendance ($data['id'], ["month" => $data['month'], "year" => $data['year'], "period" => ($data['period'] - 1)]);
-        $this->view->display ('custom/dtr', ["attendance" => $attendance]);
+        $this->view->display ('custom/dtr', ["attendance" => $attendance, "period" => $data]);
     }
 }

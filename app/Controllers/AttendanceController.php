@@ -17,12 +17,14 @@ class AttendanceController extends Controller {
 
         $interval = new DateInterval('P1D');
         $daterange = new DatePeriod($begin, $interval ,$end);
-        $attendance = [];
         DB::connect (['localhost', 'db_attendance', 'root', 'password']);
+        $i = 0;
         foreach ($daterange as $date) {
             if (date_format($date, 'm') <= $period['month']) {
-                $attendance[] = DB::select ("SELECT * FROM `$table` WHERE emp_id = ? AND date = ?", [$id, date_format($date, 'Y-m-d')])[0];
+                $attendance[$i]['date'] = date_format($date, 'Y-m-d');
+                $attendance[$i]['attn'] = DB::select ("SELECT * FROM `$table` WHERE emp_id = ? AND date = ?", [$id, date_format($date, 'Y-m-d')])[0];
             }
+            $i++;
         }
         return $attendance;
     }

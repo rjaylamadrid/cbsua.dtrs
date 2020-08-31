@@ -8,7 +8,7 @@ Macaw::get('/', function () {
 
 // Authentication
 Macaw::get('login', 'Login@index');
-Macaw::post('login', 'Login@doLogin');
+Macaw::post('login', 'Login@do_login');
 Macaw::get('logout', function () {
     session_destroy();
     header ("location: login");
