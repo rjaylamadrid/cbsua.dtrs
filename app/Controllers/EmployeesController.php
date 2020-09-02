@@ -14,7 +14,7 @@ class EmployeesController extends Controller {
     }
 
     public function employees () {
-        $this->employees = DB::select ("SELECT * FROM tbl_employee a, tbl_employee_status b WHERE a.employee_id = b.employee_id GROUP BY a.employee_id", $this->user['campus_id']);
+        $this->employees = DB::select ("SELECT * FROM tbl_employee a, tbl_employee_status b WHERE a.employee_id = b.employee_id AND b.campus_id = ? GROUP BY a.employee_id", $this->user['campus_id']);
         return $this;
     }
 

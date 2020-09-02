@@ -2,19 +2,30 @@
 use Controllers\AttendanceController;
 
 class Attendance extends AttendanceController {
+
     public function index () {
         $this->view->display ('attendance');
     }
 
     public function generate () {
         $employees = Employee::getAll();
-        $this->view->display ('attendance', ["period" => $_POST['dtr'], "employees" => $employees]);
+        $this->view->display ('attendance', ["period" => $_POST['dtr'], "employees" => $employees, "posted" => $this->is_posted ($_POST['dtr'])]);
     }
 
     public function get_attendance () {
         $data = $_POST;
-        if ($data['id'] != 0);
-        $attendance = $this->attendance ($data['id'], ["month" => $data['month'], "year" => $data['year'], "period" => ($data['period'] - 1)]);
-        $this->view->display ('custom/dtr', ["attendance" => $attendance, "period" => $data]);
+        $this->attendance ($data['id'], ["month" => $data['month'], "year" => $data['year']], ($data['period'] - 1));
+        $this->view->display ('custom/dtr', ["attendance" => $this->attendance, "period" => $data]);
+    }
+
+    public function raw_data () {
+        $this->view->display ("custom/attendance_raw_data", ["rawdata" => $this->get_raw_data ($_POST['period'], [$_POST['id'], $_POST['date']])]);
+    }
+
+    public function update_log () {
+        $attn = $this->attendance ($_POST['emp_id'], ["month" => $_POST['month'], "year" => $_POST['year']])->find ($_POST['id']);
+        $rawdata = $this->get_raw_data ($_POST['month'].'-'.$_POST['year'], [$_POST['emp_id'], $_POST['date']]);
+
+        $this->view->display ("custom/attendance_update_log", ["attn" => $attn, "rawdata" => $rawdata]);
     }
 }

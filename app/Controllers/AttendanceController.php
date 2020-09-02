@@ -8,24 +8,42 @@ use DatePeriod;
 
 class AttendanceController extends Controller {
     private $period = [[1, 15], [16, 31], [1, 31]];
-    
-    public function attendance ($id, $period) {
-        $table = $period['month'].'-'.$period['year'];
-        $begin = new DateTime ($period['year'].'-'.$period['month'].'-'.$this->period[$period['period']][0]);
-        $end = new DateTime ($period['year'].'-'.$period['month'].'-'.$this->period[$period['period']][1]);
+    public $attendance;
+
+    protected function attendance ($id, $arr, $period = 2) {
+        $table = $arr['month'].'-'.$arr['year'];
+        $begin = new DateTime ($arr['year'].'-'.$arr['month'].'-'.$this->period[$period][0]);
+        $end = new DateTime ($arr['year'].'-'.$arr['month'].'-'.$this->period[$period][1]);
         $end = $end->modify( '+1 day');
 
         $interval = new DateInterval('P1D');
         $daterange = new DatePeriod($begin, $interval ,$end);
-        DB::connect (['localhost', 'db_attendance', 'root', 'password']);
+        
         $i = 0;
         foreach ($daterange as $date) {
-            if (date_format($date, 'm') <= $period['month']) {
+            if (date_format($date, 'm') <= $arr['month']) {
                 $attendance[$i]['date'] = date_format($date, 'Y-m-d');
-                $attendance[$i]['attn'] = DB::select ("SELECT * FROM `$table` WHERE emp_id = ? AND date = ?", [$id, date_format($date, 'Y-m-d')])[0];
+                $attendance[$i]['attn'] = DB::db("db_attendance")->select ("SELECT * FROM `$table` WHERE emp_id = ? AND date = ?", [$id, date_format($date, 'Y-m-d')])[0];
             }
             $i++;
         }
-        return $attendance;
+        $this->attendance = $attendance;
+        return $this;
+    }
+
+    protected function is_posted ($period) {
+        $table = $period['month'].'-'.$period['year'];
+        $posted = DB::db("db_attendance")->select ("SELECT COUNT(*) AS count FROM `$table`")[0];
+        return $posted['count'] > 0;
+    }
+
+    protected function get_raw_data ($period, $args) {
+        return DB::db("db_raw_data")->select("SELECT * FROM `$period` WHERE emp_id = ? AND log_date = ?", $args);
+    }
+
+    protected function find ($no) {
+        foreach ($this->attendance as $attn) {
+            if ($attn['attn']['id'] == $no) return $attn['attn'];
+        }
     }
 }

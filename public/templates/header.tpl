@@ -55,7 +55,7 @@
                             <a href="{$server}/payroll" class="nav-link {if $frm.a == 'payroll'}active{/if}"><i class="fe fe-edit-3"></i> Payroll</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{$server}/attendance" class="nav-link {if $frm.a == 'attendance'}active{/if}"><i class="fe fe-clock"></i> Daily Time Record</a>
+                            <a href="{$server}/attendance" class="nav-link {if $page == 'attendance'}active{/if}"><i class="fe fe-clock"></i> Daily Time Record</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link {if $frm.a == 'calendar'}active{/if}"><i class="fe fe-calendar"></i> Calendar</a>

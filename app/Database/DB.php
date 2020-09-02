@@ -3,6 +3,8 @@ namespace Database;
 use PDO;
 class DB {
     public static $db;
+    public static $dbname = "db_master2";
+
     private $options = [
         PDO::ATTR_EMULATE_PREPARES => false,
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -10,20 +12,27 @@ class DB {
     ];
 
     private static function query ($args) {
-        if (!self::$db) {
-            self::connect (['localhost', 'db_master2', 'root', 'password']);
-        }
+        self::connect (['localhost', self::$dbname, 'root', 'password']);
         $args[1] = is_array ($args[1]) ? $args[1] : [$args[1]]; // Convert vars to array IF NOT array
-        if (!($query = self::$db->prepare($args[0]))) return array ('error' => true, 'message' => 'Cant prepare stetement.');
-        if (!($query->execute($args[1]))) return array ('error' => true, 'message' => 'Cant execute stetement.');
-        return $query;
+        try {
+            if (!($query = self::$db->prepare($args[0]))) return;
+            if (!($query->execute($args[1]))) return;
+            return $query;
+        } catch (PDOException $e) {
+            return;
+        }
+        return null;
     }
+
     public static function select () {
-        return self::query (func_get_args ())->fetchAll(PDO::FETCH_ASSOC);
+        $result = self::query (func_get_args ());
+        if ($result) return $result->fetchAll(PDO::FETCH_ASSOC);
     }
+
     public static function insert () {
         return self::query (func_get_args ())->lastInsertID();
     }
+
     public static function connect ($db) {
         $server = "mysql:host=".$db[0].";dbname=".$db[1].";charset=utf8mb4";
         try {
@@ -31,5 +40,10 @@ class DB {
         } catch (PDOException $e) {
             return array ('error' => true, 'message' => "DB ERROR: Unable to connect to database. Please check and configure database connection to continue.", 'debug_message' => $e->getMessage());
         }
+    }
+
+    public static function db ($db) {
+        self::$dbname = $db;
+        return new self ();
     }
 }

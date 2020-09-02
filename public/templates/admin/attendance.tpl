@@ -7,6 +7,20 @@
             <div class="loader"></div>
             <div class="dimmer-content"></div>
         </div>
+        {if !$posted}
+        <div class="card">
+            <div id="sync" class="card-body">
+                <input type="hidden" id="month" value="{$period.month}">
+                <input type="hidden" id="year" value="{$period.year}">
+                <div class="text-center">
+                    <p>Attendance not yet posted or uploaded. <b>PERIOD: {$period.month}-{$period.year}</b></p>
+                    <button onclick="sync_now()" class="btn btn-outline-primary">Update Attendance Now</button>
+                    <div id="sync-result">
+                    </div>
+                </div>
+            </div>
+        </div>
+        {/if}
         <div class="row row-cards" id="attendance-content">
             <input type="hidden" id="month" value="{$period.month}">
             <input type="hidden" id="year" value="{$period.year}">
@@ -82,23 +96,11 @@
    	        </div>
    	    </div>
         
-        <div class="card">
-            <div id="sync" class="card-body">
-                <input type="hidden" id="month" value="<?php echo $req['month']; ?>">
-                <input type="hidden" id="year" value="<?php echo $req['year']; ?>">
-                <div class="text-center">
-                    <p>Attendance not yet posted or uploaded.</p>
-                    <button onclick="sync_now()" class="btn btn-outline-primary">Update Attendance Now</button>
-                    <div id="sync-result">
-                    </div>
-                </div>
-            </div>
-        </div>
    	</div>
 </div>
-{if !$period}
+
 {include file="admin/modal/attendance_period.tpl"}
-{/if}
+
 <div class="modal fade margin-top-70" id="raw-data-modal" role="dialog" tabindex="-1" style="margin-left:-50px;">
   <div class="modal-dialog" id="raw-data" role="document">
 
@@ -200,10 +202,51 @@
 </div>
 
 <script type="text/javascript">
+    {if !$period}
     require(['bootstrap', 'jquery'], function () {
         $(document).ready(function () {
         $("#generate-dtr-modal").modal('show');
         });
     });
+    {/if}
+
+    function new_period () {
+        $("#generate-dtr-modal").modal('show');
+    }
+
+    function view_raw_data (id, date) {
+        var period = document.getElementById("month").value + '-' + document.getElementById("year").value;
+	    $.ajax({
+            url:"/attendance/raw",
+            type:'POST',
+	    	data: {
+                'id':id, 'period':period, 'date':date
+            },
+	    	success:function(data) {
+	        	$("#raw-data").html(data);
+	        	$("#raw-data-modal").modal('show');
+	    	}
+		});
+    }
+
+    function update_log (id, emp_id, date) {
+        var month = document.getElementById("month").value
+        var year = document.getElementById("year").value;
+        $.ajax({
+            url:"/attendance/update",
+            type:"POST",
+            data:{
+                'id':id, 'emp_id':emp_id, 'month':month, 'year': year, 'date':date
+            },
+            success:function(data){
+                $("#update-log").html(data);
+                $("#update-log-modal").modal('show');
+            }
+        });
+    }
+
+    function sync_now () {
+        
+    }
 </script>
 {/block}
