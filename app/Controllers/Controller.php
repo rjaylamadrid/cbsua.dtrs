@@ -8,6 +8,7 @@ class Controller {
     public $view;
 
     public function __construct () {
+        if (!$_SESSION['user'] && $this->request_page () != 'login') header ("location: /login");
         $this->user = $_SESSION['user'];
         $this->view = new SmartyView ();
 

@@ -1,5 +1,10 @@
+<style>
+.dtr-data th, td {
+    text-align: center;
+}
+</style>
 <div class="table-responsive dtr">
-    <table class="order-table table table-bordered text-gray-900" id="dataTable" width="100%" cellspacing="0">
+    <table class="order-table table table-bordered text-gray-900 dtr-data" id="dataTable" width="100%" cellspacing="0">
         <thead>
             <tr>
             <th rowspan="2">DAY</th>
@@ -67,10 +72,10 @@
   </div>
   <div class="card-footer" style="display: inline-block;">
     <form target="_blank" action="/attendance/print" method="POST">
-        <input type="hidden" name="employee_id" value="{$period.id}">
-        <input type="hidden" name="period" value={$period.period}>
-        <input type="hidden" name="month" value={$period.month}>
-        <input type="hidden" name="year" value={$period.year}>
+        <input type="hidden" name="data[employee_id]" value="{$period.id}">
+        <input type="hidden" name="data[period]" value={$period.period}>
+        <input type="hidden" name="data[month]" value={$period.month}>
+        <input type="hidden" name="data[year]" value={$period.year}>
         <div class="text-right">
             <button type="submit" class="btn btn-primary">Print DTR</button>
         </div>

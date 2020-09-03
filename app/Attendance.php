@@ -28,4 +28,19 @@ class Attendance extends AttendanceController {
 
         $this->view->display ("custom/attendance_update_log", ["attn" => $attn, "rawdata" => $rawdata]);
     }
+
+    public function print_preview () {
+        if ($_POST['data']) {
+            $data = $_POST['data'];
+            $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']]);
+            
+            $vars = ["attendance" => $this->attendance];
+            
+            $pdf['content'] = $this->view->render ("pdf/dtr", $vars);
+            $pdf['options'] = ["orientation" => "portrait"];
+            $this->to_pdf ($pdf);
+        }
+    }
+
+    public function gen_pdf () {}
 }

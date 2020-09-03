@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "smarty/smarty": "^3.1",
-        "noahbuscher/macaw": "dev-master"
+        "noahbuscher/macaw": "dev-master",
+        "tecnickcom/tcpdf": "^6.3"
     },
     "autoload": {
         "psr-4": {

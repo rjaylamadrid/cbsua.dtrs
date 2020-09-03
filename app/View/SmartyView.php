@@ -21,7 +21,8 @@ class SmartyView {
         foreach ($vars as $key => $value) $this->smarty->assign ($key, $value);
     }
 
-    public function render () {
-
+    public function render ($tpl, $vars = null) {
+        if ($vars) $this->assign ($vars);
+        return $this->smarty->fetch ("$tpl.tpl");
     }
 }

@@ -2,11 +2,13 @@ require.config({
 shim: {
 'bootstrap': ['jquery'],
 'core': ['bootstrap', 'jquery'],
+'datatables': ['jquery'],
 },
 paths: {
 'core': 'assets/js/core',
 'jquery': 'assets/js/vendors/jquery.min',
 'bootstrap': 'assets/js/vendors/bootstrap.bundle.min',
+'datatables': 'assets/js/vendors/datatables.min',
 }
 });
 window.tabler = {

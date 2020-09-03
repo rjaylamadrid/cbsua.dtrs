@@ -1,6 +1,8 @@
 <?php
 use NoahBuscher\Macaw\Macaw;
 
+$_SERVER['REQUEST_URI'] = rtrim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), "/");
+
 // Landing page
 Macaw::get('/', function () {
     header ("location: login");
@@ -30,5 +32,6 @@ Macaw::post('/attendance', 'Attendance@generate');
 Macaw::post('/attendance/init', 'Attendance@get_attendance');
 Macaw::post('/attendance/raw', 'Attendance@raw_data');
 Macaw::post('/attendance/update', 'Attendance@update_log');
+Macaw::post('/attendance/print', 'Attendance@print_preview');
 
 Macaw::dispatch();

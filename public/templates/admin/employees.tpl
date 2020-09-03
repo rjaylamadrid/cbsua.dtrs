@@ -28,7 +28,7 @@
             <div class="row row-cards row-deck">
                 <div class="col-12"><div class="card">
                     <div class="table-responsive">
-                        <table style=" font-family:  Arial;" class="table table-hover card-table table-vcenter text-nowrap datatable dataTable no-footer" id="employees">
+                        <table style=" font-family:  Arial;" class="table table-hover card-table table-vcenter text-nowrap datatable dataTable no-footer" id="tbl-employees">
                             <thead>
                                 <tr>
                                 <th>ID</th>
@@ -70,6 +70,11 @@
                         </table>
                     </div>
                 </div>
+                <script>
+                    require (['datatables'], function () {
+                        $("#tbl-employees").DataTable();
+                    })
+                </script>
             </div>
         </div>
     </div>

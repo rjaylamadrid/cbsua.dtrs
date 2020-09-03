@@ -5,6 +5,7 @@ use Database\DB;
 use DateTime;
 use DateInterval;
 use DatePeriod;
+use View\PDF;
 
 class AttendanceController extends Controller {
     private $period = [[1, 15], [16, 31], [1, 31]];
@@ -45,5 +46,9 @@ class AttendanceController extends Controller {
         foreach ($this->attendance as $attn) {
             if ($attn['attn']['id'] == $no) return $attn['attn'];
         }
+    }
+
+    protected function to_pdf ($data) {
+        PDF::preview ($data);
     }
 }
