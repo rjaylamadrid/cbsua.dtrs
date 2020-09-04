@@ -1,5 +1,6 @@
 <?php
 use Controllers\AttendanceController;
+use Profile;
 
 class Attendance extends AttendanceController {
 
@@ -32,9 +33,10 @@ class Attendance extends AttendanceController {
     public function print_preview () {
         if ($_POST['data']) {
             $data = $_POST['data'];
-            $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']]);
+            $attendance = $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']])->compute (); // Employee Attendance
+            $profile = Profile::employee ($data['employee_id'])->get ();
             
-            $vars = ["attendance" => $this->attendance];
+            $vars = ["attendance" => $attendance, "employee" => $profile];
             
             $pdf['content'] = $this->view->render ("pdf/dtr", $vars);
             $pdf['options'] = ["orientation" => "portrait"];

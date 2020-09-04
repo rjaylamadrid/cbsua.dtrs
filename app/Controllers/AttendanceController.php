@@ -32,6 +32,16 @@ class AttendanceController extends Controller {
         return $this;
     }
 
+    protected function compute () {
+        $attendance = [];
+        for ($i=0; $i < sizeof ($this->attendance); $i++) {
+            $attendance['attn'][$i] = $this->attendance[$i];
+            $attendance['total'] += $this->attendance[$i]['attn']['total_hours'];
+            $attendance['ut'] += ($this->attendance[$i]['attn']['late'] + $this->attendance[$i]['attn']['undertime']);
+        }
+        return $attendance;
+    }
+
     protected function is_posted ($period) {
         $table = $period['month'].'-'.$period['year'];
         $posted = DB::db("db_attendance")->select ("SELECT COUNT(*) AS count FROM `$table`")[0];

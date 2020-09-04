@@ -21,6 +21,6 @@ class PDF {
 
     protected function set () {
         self::$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        self::$pdf->SetFont('dejavusans', '', 8);
+        self::$pdf->SetFont('dejavusanscondensed', '', 8);
     }
 }
