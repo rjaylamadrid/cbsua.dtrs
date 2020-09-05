@@ -217,10 +217,10 @@
     function view_raw_data (id, date) {
         var period = document.getElementById("month").value + '-' + document.getElementById("year").value;
 	    $.ajax({
-            url:"/attendance/raw",
+            url:"/attendance",
             type:'POST',
 	    	data: {
-                'id':id, 'period':period, 'date':date
+                'action': 'raw_data', 'id':id, 'period':period, 'date':date
             },
 	    	success:function(data) {
 	        	$("#raw-data").html(data);
@@ -233,10 +233,10 @@
         var month = document.getElementById("month").value
         var year = document.getElementById("year").value;
         $.ajax({
-            url:"/attendance/update",
+            url:"/attendance",
             type:"POST",
             data:{
-                'id':id, 'emp_id':emp_id, 'month':month, 'year': year, 'date':date
+                'action': 'update_log', 'id':id, 'emp_id':emp_id, 'month':month, 'year': year, 'date':date
             },
             success:function(data){
                 $("#update-log").html(data);

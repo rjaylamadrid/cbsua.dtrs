@@ -28,10 +28,7 @@ Macaw::get('/employees/update/(:any)/(:any)', 'Employees@update');
 
 // Attendance
 Macaw::get('/attendance', 'Attendance@index');
-Macaw::post('/attendance', 'Attendance@generate');
-Macaw::post('/attendance/init', 'Attendance@get_attendance');
-Macaw::post('/attendance/raw', 'Attendance@raw_data');
-Macaw::post('/attendance/update', 'Attendance@update_log');
+Macaw::post('/attendance', 'Attendance@do_action');
 Macaw::post('/attendance/print', 'Attendance@print_preview');
 
 Macaw::dispatch();

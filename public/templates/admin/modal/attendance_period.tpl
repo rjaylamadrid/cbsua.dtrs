@@ -8,9 +8,10 @@
                 <div class="card-body">
                     <div class="form-group">
                         <form action="" method="POST">
+                            <input type="hidden" name="action" value="generate">
                             <label style="display: inline-block;">Select DTR period:&nbsp;</label>
                             <div class="form-group">
-                                <select name="dtr[period]" class="form-control custom-select">
+                                <select name="data[period]" class="form-control custom-select">
                                     <option value="1">First Half (1 - 15)</option>
                                     <option value="2">Second Half (16 - 31)</option>
                                     <option value="3">Whole Month (1 - 31)</option>
@@ -19,18 +20,18 @@
                             <div class="form-group form-inline">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <select name="dtr[month]" class="form-control custom-select" style="width: 100%" required>
+                                        <select name="data[month]" class="form-control custom-select" style="width: 100%" required>
                                             <option value="00" disabled="">Month</option>
                                             {include file="custom/select_month.tpl"}
                                         </select>
                                     </div>
                                     <div class="col-lg-6">
-                                        <input type="number" name="dtr[year]" class="form-control" placeholder="Year" value="{date('Y')}" style="width: 100%">
+                                        <input type="number" name="data[year]" class="form-control" placeholder="Year" value="{date('Y')}" style="width: 100%">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <select name="dtr[emp_type]" class="form-control custom-select">
+                                <select name="data[emp_type]" class="form-control custom-select">
                                     <option value="">All employees</option>
                                     <option value="0">All regular/casual</option>
                                     {* <?php 
@@ -50,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <span style="float: right;">
-                                <input type="submit" class="btn btn-primary" name="init_attendance" value="Generate DTR">
+                                <input type="submit" class="btn btn-primary" value="Generate DTR">
                                 <a href="#" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
                                 </span>
                             </div>
