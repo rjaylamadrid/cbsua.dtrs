@@ -27,7 +27,7 @@
                             <i class="dropdown-icon fe fe-settings"></i> Settings
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="?a=logout">
+                        <a class="dropdown-item" href="{$server}logout">
                             <i class="dropdown-icon fe fe-log-out"></i> Sign out
                         </a>
                     </div>

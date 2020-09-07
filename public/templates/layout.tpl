@@ -35,5 +35,5 @@
         </div>
     </div>
 </body>
-{if $frm.a != 'login'}{include file="footer.tpl"}{/if}
+{if $page != 'login'}{include file="footer.tpl"}{/if}
 </html>
