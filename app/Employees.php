@@ -21,4 +21,9 @@ class Employees extends EmployeesController {
         $emp = Profile::employee($id)->info($table);
         $this->view->display ('profile', ["employee" => Profile::$employee, "emp" => $emp, "tab" => $view, "view" => "update"]);
     }
+
+    public function save ($id, $view = 'basic-info') {
+        
+        header ("location: /employees/profile/$id/$view");
+    }
 }

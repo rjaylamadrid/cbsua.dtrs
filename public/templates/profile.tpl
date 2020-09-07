@@ -19,7 +19,7 @@
 {if $view == "update"}
             <div class="col-md-2">
                 <div class="list-group list-group-transparent mb-0">
-                  <a href="?a={if $session.type == 'admin'}employees&show={/if}profile&tab={$frm.tab}" class="list-group-item list-group-item-action d-flex align-items-center active"><span class="icon mr-3"><i class="fe fe-back"></i></span> Back to profile</a>
+                  <a href="{$server}{if $user.is_admin}/employees/profile/{$employee.employee_id}/{$tab}{else}/profile/{$tab}{/if}" class="list-group-item list-group-item-action d-flex align-items-center active"><span class="icon mr-3"><i class="fe fe-back"></i></span> Back to profile</a>
                 </div>
               </div>
 {else}
@@ -53,8 +53,8 @@
                 </form>
             </div>
 {/if}
-            <div class="{if $frm.view == 'update'}col-md-10{else}col-md-8{/if} col-sm-12">
-                <div class="card" style="min-height: 600px;">
+            <div class="{if $view == 'update'}col-md-10{else}col-md-8{/if} col-sm-12">
+                <div class="card p-2" style="min-height: 600px;">
                     <div class="card-body profile-content">
                         {include file = "profile/{$tab}.tpl"}
                     </div>

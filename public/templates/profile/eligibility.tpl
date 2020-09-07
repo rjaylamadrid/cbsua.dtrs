@@ -1,13 +1,15 @@
-{if $frm.view != "update"}
+{if $view != "update"}
     <div class="form-group" style="float: right;">
-        <a href="?a=profile&tab={$frm.tab}&view=update" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
+        <a href="{$server}{if $user.is_admin}/employees/update/{$employee.employee_id}/eligibility{else}/update/eligibility{/if}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
+            {foreach from = $emp item = eligibility}
             <tr class="row-header"><td colspan="2">1</td></tr>
-            <tr><td>Title of ELigibility</td><td>SAMPLE<div class="small text-muted">RATING: SAMPLE</div></td></tr>
-            <tr><td>Place & Date of Exam</td><td><div>SAMPLE</div><div class="small text-muted">DATE: SAMPLE</div></td></tr>
-            <tr><td>Licence No</td><td><div>SAMPLE</div><div class="small text-muted">VALIDITY: SAMPLE</div></td></tr>
+            <tr><td>Title of ELigibility</td><td>{$eligibility.eligibility_name}<div class="small text-muted">RATING: {$eligibility.eligibility_rating}</div></td></tr>
+            <tr><td>Place & Date of Exam</td><td><div>{$eligibility.eligibility_place_exam}</div><div class="small text-muted">DATE: {$eligibility.eligibility_date_exam}</div></td></tr>
+            <tr><td>Licence No</td><td><div>{$eligibility.license}</div><div class="small text-muted">VALIDITY: {$eligibility.eligibility_validity}</div></td></tr>
+            {/foreach}
         </table>
     </div>
 {else}
@@ -40,18 +42,19 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {foreach from = $emp item = eligibility}
                         <tr>
                             <td>
-                                <div>SAMPLE</div>
-                                <div class="small text-muted">Rating: SAMPLE</div>
+                                <div>{$eligibility.eligibility_name}</div>
+                                <div class="small text-muted">Rating: {$eligibility.eligibility_rating}</div>
                             </td>
                             <td>
-                                <div>SAMPLE</div>
-                                <div class="small text-muted">Date: SAMPLE</div>
+                                <div>{$eligibility.eligibility_place_exam}</div>
+                                <div class="small text-muted">Date: {$eligibility.eligibility_date_exam}</div>
                             </td>
                             <td>
-                                <div>SAMPLE</div>
-                                <div class="small text-muted">Valid until: SAMPLE</div>
+                                <div>{$eligibility.eligibility_license}</div>
+                                <div class="small text-muted">Valid until: {$eligibility.eligibility_validity}</div>
                             </td>
                             <td style="vertical-align: middle; text-align: center;">
                                 <form action="" method="POST"><input type="hidden" name="action" value="delete">
@@ -60,6 +63,7 @@
                                 </form>
                             </td>
                         </tr>
+                        {/foreach}
                     </tbody>
                 </table>
             </div>

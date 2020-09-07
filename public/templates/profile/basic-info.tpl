@@ -1,6 +1,7 @@
+{$emp = $emp[0]}
 {if $view != "update"}
     <div class="form-group" style="float: right;">
-        <a href="?a=profile&tab={$frm.tab}&view=update" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
+        <a href="{$server}{if $user.is_admin}/employees/update/{$employee.employee_id}{else}/update{/if}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
@@ -28,8 +29,7 @@
         </table>
     </div>
 {else}
-    <form action="" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
-        <input type="hidden" name="action" value="save_changes">
+    <form action="{$server}{if $user.is_admin}/employees/save/{$employee.employee_id}{else}/save{/if}" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
         <div class="form-group row btn-square">
             <div class="row">
                 <div class="col-sm-12 col-lg-4 col-md-4 mb-4 text-center btn-square">
@@ -200,10 +200,10 @@
                         <label class="form-label" for="civil_stat">Marital Status</label>
                         <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[MaritalStatus]">
                             <option value="" disabled>Civil Status</option>
-                            <option value="Single">Single</option>
-                            <option value="Married">Married</option>
-                            <option value="Widowed">Widowed</option>
-                            <option value="Separated">Separated</option>
+                            <option value="Single" {if $emp.marital_status == 'Single'} selected {/if}>Single</option>
+                            <option value="Married" {if $emp.marital_status == 'Married'} selected {/if}>Married</option>
+                            <option value="Widowed" {if $emp.marital_status == 'Widowed'} selected {/if}>Widowed</option>
+                            <option value="Separated" {if $emp.marital_status == 'Separated'} selected {/if}>Separated</option>
                         </select>
                     </div>
                 </div>
@@ -212,7 +212,7 @@
                         <label class="form-label" for="civil_stat">Citizenship</label>
                         <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[Citizenship]">
                             <option value="" disabled selected="">Select Citizenship</option>
-                            <option value="Filipino">Filipino</option>
+                            <option value="Filipino" {if $emp.citizenship == "Filipino"} selected {/if}>Filipino</option>
                             <option value="Dual Citizenship - by birth">Dual Citizenship - by birth</option>
                             <option value="Dual Citizenship - by naturalization">Dual Citizenship - by naturalization</option>
                         </select>
@@ -231,73 +231,73 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Height (m)</label>
-                        <input  type="text"  class="form-control" name="employeeinfo[Height]" value="">
+                        <input  type="text"  class="form-control" name="employeeinfo[Height]" value="{$emp.height}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Weight (kg)</label>
-                        <input class="form-control" type="text" name="employeeinfo[Weight]" value="">
+                        <input class="form-control" type="text" name="employeeinfo[Weight]" value="{$emp.weight}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Blood Type</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[BloodType]" value="">
+                        <input readonly class="form-control" type="text" name="employeeinfo[BloodType]" value="{$emp.blood_type}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">GSIS ID No.</label>
-                        <input readonly type="text" class="form-control" name="employeeinfo[GSISNo]" value="">
+                        <input readonly type="text" class="form-control" name="employeeinfo[GSISNo]" value="{$emp.gsis_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">PAG-IBIG ID No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[PagibigNo]" value="">
+                        <input readonly class="form-control" type="text" name="employeeinfo[PagibigNo]" value="{$emp.pagibig_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">PHILHEALTH No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[PhilhealthNo]" value="">
+                        <input readonly class="form-control" type="text" name="employeeinfo[PhilhealthNo]" value="{$emp.philhealth_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">SSS No.</label>
-                        <input readonly  type="text" class="form-control" name="employeeinfo[SSSNo]" value="">
+                        <input readonly  type="text" class="form-control" name="employeeinfo[SSSNo]" value="{$emp.sss_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">TIN No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[TINNo]" value="">
+                        <input readonly class="form-control" type="text" name="employeeinfo[TINNo]" value="{$emp.tin_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Agency Employee No.</label>
-                        <input readonly class="form-control" type="text" value="">
+                        <input readonly class="form-control" type="text" value="{$emp.employee_id}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Email Address</label>
-                        <input readonly type="email"  class="form-control" name="employeeinfo[EmailAddress]" value="">
+                        <input type="email"  class="form-control" name="employeeinfo[EmailAddress]" value="{$emp.email_address}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Mobile Number</label>
-                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[CellphoneNo]" pattern="^(?:0|\(?\+63\)?\s?)[9](\d){9}$"  name="employeeinfo[CellphoneNo]" value="">
+                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[CellphoneNo]" pattern="^(?:0|\(?\+63\)?\s?)[9](\d){9}$"  name="employeeinfo[CellphoneNo]" value="{$emp.cellphone_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Telephone Number</label>
-                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[TelephoneNo]"  name="employeeinfo[TelephoneNo]" value="">
+                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[TelephoneNo]"  name="employeeinfo[TelephoneNo]" value="{$emp.telephone_no}">
                     </div>
                 </div>
             </div>

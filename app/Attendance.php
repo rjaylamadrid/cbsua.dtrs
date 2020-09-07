@@ -38,7 +38,7 @@ class Attendance extends AttendanceController {
         $this->view->display ("custom/attendance_update_log", ["attn" => $attn, "rawdata" => $rawdata]);
     }
 
-    protected function print_preview () {
+    public function print_preview () {
         if ($_POST['data']) {
             $data = $_POST['data'];
             $attendance = $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']])->compute (); // Employee Attendance

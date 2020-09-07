@@ -23,8 +23,10 @@ Macaw::get('/dashboard', 'Dashboard@index');
 Macaw::get('/employees', 'Employees@index');
 Macaw::get('/employees/profile/(:any)', 'Employees@profile');
 Macaw::get('/employees/update/(:any)', 'Employees@update');
+Macaw::post('/employees/save/(:any)', 'Employees@save');
 Macaw::get('/employees/profile/(:any)/(:any)', 'Employees@profile');
 Macaw::get('/employees/update/(:any)/(:any)', 'Employees@update');
+Macaw::post('/employees/save/(:any)/(:any)', 'Employees@save');
 
 // Attendance
 Macaw::get('/attendance', 'Attendance@index');
