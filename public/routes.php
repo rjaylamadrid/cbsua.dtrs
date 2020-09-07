@@ -9,6 +9,7 @@ Macaw::get('/', function () {
 });
 
 // Authentication
+Macaw::post('login/type', 'Login@change_type');
 Macaw::get('login', 'Login@index');
 Macaw::post('login', 'Login@do_login');
 Macaw::get('logout', function () {

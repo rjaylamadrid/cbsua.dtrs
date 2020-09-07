@@ -54,6 +54,8 @@
                                                 </a>
                                                 <a href="?a=employees&show=employment&id={$employee.employee_id}&tab=employment" class="dropdown-item"><i class="dropdown-icon fe fe-user"></i> View Employment 
                                                 </a>
+                                                <a href="javascript:set_inactive('{$employee.employee_id}');" class="dropdown-item"><i class="dropdown-icon fe fe-tag"></i> Set as Inactive 
+                                                </a>
                                                 {* <div class="dropdown-divider"></div>
                                                     <form method="POST" action="">
                                                         <input type="hidden" name="ActiveStatus" value="'.$set.'">
@@ -78,4 +80,9 @@
             </div>
         </div>
     </div>
+    <script>
+        function set_inactive (id) {
+            
+        }
+    </script>
 {/block}

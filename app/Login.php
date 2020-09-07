@@ -25,4 +25,13 @@ class Login extends LoginController {
         }
         $this->index ();
     }
+    
+    public function change_type () {
+        if($_SESSION['user']['type'] == 'admin'){
+            unset($_SESSION['user']['type']);
+        }else{
+            $_SESSION['user']['type'] = 'admin';
+        }
+        header ("location: /login");
+    }
 }
