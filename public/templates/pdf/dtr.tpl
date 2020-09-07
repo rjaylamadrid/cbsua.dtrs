@@ -3,18 +3,25 @@
 <head>
 <style>
     .content {
-        font-size: 8.5px;
+        font-size: 9px;
     }
-    
     .table {
         table-layout: auto;
         border-collapse: collapse;
     }
-    .table td {
+    .border td {
+        border: 1pt solid black;
+    }
+    .border th {
+        border: 1pt solid black;
+    }
+    .table td, th {
         white-space: normal;
         text-align: center;
-        border: 1pt solid black;
         height: 10px;
+    }
+    .no-border td {
+        border-bottom: none;
     }
 </style>
 </head>

@@ -22,8 +22,8 @@ function init_dtr(id) {
 
     $.ajax({
         type:'POST',
-        url:'attendance/init',
-        data:{'id':id, 'month':month, 'year':year, 'period':period},
+        url:'attendance',
+        data:{'action': 'get_attendance', 'id':id, 'month':month, 'year':year, 'period':period},
         success:function(data) {
             $("#dtr").html(data);
             $("#cover-spin").hide(0);
