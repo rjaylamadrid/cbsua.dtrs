@@ -11,7 +11,7 @@ class PDF {
         return call_user_func($name, $args);
     }
 
-    public function preview ($args) {
+    public static function preview ($args) {
         if (!self::$pdf) self::set ();
 
         self::$pdf->addPage();
@@ -19,7 +19,7 @@ class PDF {
         self::$pdf->Output('example_006.pdf', 'I');
     }
 
-    protected function set () {
+    protected static function set () {
         self::$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         self::$pdf->SetFont('dejavusanscondensed', '', 8);
     }

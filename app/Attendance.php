@@ -1,11 +1,10 @@
 <?php
 use Controllers\AttendanceController;
-use Profile;
 
 class Attendance extends AttendanceController {
 
     public function index () {
-        $this->view->display ('attendance');
+        $this->view->display ('attendance', ["emp_type" => $this->type ()]);
     }
 
     public function do_action () {
@@ -16,8 +15,23 @@ class Attendance extends AttendanceController {
         }
     }
 
+    public function print_preview () {
+        if ($_POST['data']) {
+            $data = $_POST['data'];
+            $attendance = $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']])->compute (); // Employee Attendance
+            $profile = Profile::employee ($data['employee_id'])->get ();
+            
+            $vars = ["attendance" => $attendance, "employee" => $profile];
+            
+            $pdf['content'] = $this->view->render ("pdf/dtr", $vars);
+            $pdf['options'] = ["orientation" => "portrait"];
+            $this->to_pdf ($pdf);
+        }
+    }
+
     protected function generate () {
-        $employees = Employee::getAll();
+        if ($_POST['data']['emp_type']) $employees = Employee::type ($_POST['data']['emp_type']);
+        else $employees = Employee::getAll();
         $this->view->display ('attendance', ["period" => $_POST['data'], "employees" => $employees, "posted" => $this->is_posted ($_POST['data'])]);
     }
 
@@ -37,20 +51,4 @@ class Attendance extends AttendanceController {
 
         $this->view->display ("custom/attendance_update_log", ["attn" => $attn, "rawdata" => $rawdata]);
     }
-
-    protected function print_preview () {
-        if ($_POST['data']) {
-            $data = $_POST['data'];
-            $attendance = $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']])->compute (); // Employee Attendance
-            $profile = Profile::employee ($data['employee_id'])->get ();
-            
-            $vars = ["attendance" => $attendance, "employee" => $profile];
-            
-            $pdf['content'] = $this->view->render ("pdf/dtr", $vars);
-            $pdf['options'] = ["orientation" => "portrait"];
-            $this->to_pdf ($pdf);
-        }
-    }
-
-    protected function gen_pdf () {}
 }

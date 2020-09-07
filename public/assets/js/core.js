@@ -1,6 +1,6 @@
 let path = document.location.href;
 
-async function f (data = {}, url = path) {
+async function fetch (data = {}, url = path) {
   const response = await fetch(url, {
     method: 'POST',
     body: new URLSearchParams(data),

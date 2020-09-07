@@ -57,7 +57,9 @@ class AttendanceController extends Controller {
             if ($attn['attn']['id'] == $no) return $attn['attn'];
         }
     }
-
+    protected function type () {
+        return DB::select ("SELECT * FROM tbl_employee_type");
+    }
     protected function to_pdf ($data) {
         PDF::preview ($data);
     }

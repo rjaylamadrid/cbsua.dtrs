@@ -34,12 +34,9 @@
                                 <select name="data[emp_type]" class="form-control custom-select">
                                     <option value="">All employees</option>
                                     <option value="0">All regular/casual</option>
-                                    {* <?php 
-                                        $emp_type = exec_query("SELECT * FROM tbl_employee_type",$master);
-                                        foreach ($emp_type as $value) {
-                                        echo "<option value='".$value['etype_id']."'>".$value['etype_desc']."</option>";
-                                        }
-                                    ?> *}
+                                    {foreach $emp_type as $e}
+                                    <option value="{$e.etype_id}">{$e.etype_desc}</option>
+                                    {/foreach}
                                 </select>
                             </div>
                             <div class="form-group">
