@@ -1,7 +1,7 @@
 {$emp = $emp[0]}
 {if $view != "update"}
     <div class="form-group" style="float: right;">
-        <a href="{$server}{if $user.is_admin}/employees/update/{$employee.employee_id}{else}/update{/if}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
+        <a href="{$server}{if $user.type}/employees/update/{$employee.employee_id}{else}/update{/if}" class="btn btn-secondary btn-sm ml-2"><i class="fe fe-edit-2"></i> Edit</a>
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
@@ -291,7 +291,7 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Mobile Number</label>
-                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[CellphoneNo]" pattern="^(?:0|\(?\+63\)?\s?)[9](\d){9}$"  name="employeeinfo[CellphoneNo]" value="{$emp.cellphone_no}">
+                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[CellphoneNo]" name="employeeinfo[CellphoneNo]" value="{$emp.cellphone_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">

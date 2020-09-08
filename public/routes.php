@@ -40,5 +40,8 @@ Macaw::get('/settings', 'Settings@index');
 Macaw::error(function() {
     header ("location: /login");
 });
+// Employee Account
+Macaw::get('/profile', 'Employees@profile');
+Macaw::get('/profile/(:any)', 'Employees@profile');
 
 Macaw::dispatch();

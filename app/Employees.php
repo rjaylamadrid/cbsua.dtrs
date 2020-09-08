@@ -9,6 +9,7 @@ class Employees extends EmployeesController {
     }
 
     public function profile ($id, $view = 'basic-info') {
+        $id = $id ? $id : $this->user['employee_id'];
         $table = $view == 'basic-info' ? 'tbl_employee' : 'tbl_employee_'.str_replace ("-", "_", $view);
 
         $emp = Profile::employee($id)->info($table);

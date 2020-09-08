@@ -69,13 +69,13 @@
                         </li>
                     {else}
                         <li class="nav-item">
-                            <a href="{$server}/profile/basic-info" class="nav-link {if $frm.a == 'profile'}active{/if}"><i class="fe fe-user"></i> Profile</a>
+                            <a href="{$server}/profile/basic-info" class="nav-link {if $page == 'profile'}active{/if}"><i class="fe fe-user"></i> Profile</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{$server}/payroll" class="nav-link {if $frm.a == 'payroll'}active{/if}"><i class="fe fe-edit-3"></i> Payroll</a>
+                            <a href="{$server}/payroll" class="nav-link {if $page == 'payroll'}active{/if}"><i class="fe fe-edit-3"></i> Payroll</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{$server}/attendance" class="nav-link {if $frm.a == 'attendance'}active{/if}"><i class="fe fe-clock"></i> Daily Time Record</a>
+                            <a href="{$server}/attendance" class="nav-link {if $page == 'attendance'}active{/if}"><i class="fe fe-clock"></i> Daily Time Record</a>
                         </li>
                     {/if}
                 </ul>
