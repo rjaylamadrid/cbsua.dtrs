@@ -34,6 +34,9 @@ Macaw::get('/attendance', 'Attendance@index');
 Macaw::post('/attendance', 'Attendance@do_action');
 Macaw::post('/attendance/print', 'Attendance@print_preview');
 
+// Settings
+Macaw::get('/settings', 'Settings@index');
+
 Macaw::error(function() {
     header ("location: /login");
 });
