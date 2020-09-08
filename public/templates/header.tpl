@@ -65,7 +65,7 @@
                             <span><div class="notif"></div></span>
                         </li>
                         <li class="nav-item">
-                            <a href="{$server}/settings" class="nav-link {if $frm.a == 'settings'}active{/if}"><i class="fe fe-settings"></i> Settings</a>
+                            <a href="{$server}/settings" class="nav-link {if $page == 'settings'}active{/if}"><i class="fe fe-settings"></i> Settings</a>
                         </li>
                     {else}
                         <li class="nav-item">

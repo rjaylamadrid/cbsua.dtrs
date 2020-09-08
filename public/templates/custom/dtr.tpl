@@ -72,10 +72,10 @@
   </div>
   <div class="card-footer" style="display: inline-block;">
     <form target="_blank" action="/attendance/print" method="POST">
-        <input type="hidden" name="data[employee_id]" value="{$period.id}">
-        <input type="hidden" name="data[period]" value={$period.period}>
-        <input type="hidden" name="data[month]" value={$period.month}>
-        <input type="hidden" name="data[year]" value={$period.year}>
+        <input type="hidden" name="employee_id" value="{$period.id}">
+        <input type="hidden" name="period" value={$period.period}>
+        <input type="hidden" name="month" value={$period.month}>
+        <input type="hidden" name="year" value={$period.year}>
         <div class="text-right">
             <button type="submit" class="btn btn-primary">Print DTR</button>
         </div>

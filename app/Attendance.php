@@ -9,17 +9,16 @@ class Attendance extends AttendanceController {
 
     public function do_action () {
         try {
-            $this->{$_POST['action']} ();
+            $this->{$this->data['action']} ();
         } catch (\Throwable $th) {
             $this->index();
         }
     }
 
     public function print_preview () {
-        if ($_POST['data']) {
-            $data = $_POST['data'];
-            $attendance = $this->attendance ($data['employee_id'], ["month" => $data['month'], "year" => $data['year']])->compute (); // Employee Attendance
-            $profile = Profile::employee ($data['employee_id'])->get ();
+        if ($this->data) {
+            $attendance = $this->attendance ($this->data['employee_id'], ["month" => $this->data['month'], "year" => $this->data['year']])->compute (); // Employee Attendance
+            $profile = Profile::employee ($this->data['employee_id'])->get ();
             
             $vars = ["attendance" => $attendance, "employee" => $profile];
             
@@ -30,24 +29,23 @@ class Attendance extends AttendanceController {
     }
 
     protected function generate () {
-        if ($_POST['data']['emp_type']) $employees = Employee::type ($_POST['data']['emp_type']);
+        if ($this->data['emp_type']) $employees = Employee::type ($this->data['emp_type']);
         else $employees = Employee::getAll();
-        $this->view->display ('attendance', ["period" => $_POST['data'], "employees" => $employees, "posted" => $this->is_posted ($_POST['data'])]);
+        $this->view->display ('attendance', ["period" => $this->data, "employees" => $employees, "posted" => $this->is_posted ($this->data)]);
     }
 
     protected function get_attendance () {
-        $data = $_POST;
-        $this->attendance ($data['id'], ["month" => $data['month'], "year" => $data['year']], ($data['period'] - 1));
-        $this->view->display ('custom/dtr', ["attendance" => $this->attendance, "period" => $data]);
+        $this->attendance ($this->data['id'], ["month" => $this->data['month'], "year" => $this->data['year']], ($this->data['period'] - 1));
+        $this->view->display ('custom/dtr', ["attendance" => $this->attendance, "period" => $this->data]);
     }
 
     protected function raw_data () {
-        $this->view->display ("custom/attendance_raw_data", ["rawdata" => $this->get_raw_data ($_POST['period'], [$_POST['id'], $_POST['date']])]);
+        $this->view->display ("custom/attendance_raw_data", ["rawdata" => $this->get_raw_data ($this->data['period'], [$this->data['id'], $this->data['date']])]);
     }
 
     protected function update_log () {
-        $attn = $this->attendance ($_POST['emp_id'], ["month" => $_POST['month'], "year" => $_POST['year']])->find ($_POST['id']);
-        $rawdata = $this->get_raw_data ($_POST['month'].'-'.$_POST['year'], [$_POST['emp_id'], $_POST['date']]);
+        $attn = $this->attendance ($this->data['emp_id'], ["month" => $this->data['month'], "year" => $this->data['year']])->find ($this->data['id']);
+        $rawdata = $this->get_raw_data ($this->data['month'].'-'.$this->data['year'], [$this->data['emp_id'], $this->data['date']]);
 
         $this->view->display ("custom/attendance_update_log", ["attn" => $attn, "rawdata" => $rawdata]);
     }
