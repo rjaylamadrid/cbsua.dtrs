@@ -4,11 +4,13 @@
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
+            {* {$counter=1} *}
             {foreach from = $emp item = eligibility}
-            <tr class="row-header"><td colspan="2">1</td></tr>
+            <tr class="row-header"><td colspan="2">{$eligibility@iteration}</td></tr>
             <tr><td>Title of ELigibility</td><td>{$eligibility.eligibility_name}<div class="small text-muted">RATING: {$eligibility.eligibility_rating}</div></td></tr>
             <tr><td>Place & Date of Exam</td><td><div>{$eligibility.eligibility_place_exam}</div><div class="small text-muted">DATE: {$eligibility.eligibility_date_exam}</div></td></tr>
             <tr><td>Licence No</td><td><div>{$eligibility.license}</div><div class="small text-muted">VALIDITY: {$eligibility.eligibility_validity}</div></td></tr>
+            {* {$counter++} *}
             {/foreach}
         </table>
     </div>

@@ -4,10 +4,12 @@
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
-            <tr class="row-header"><td colspan="2">1.</td></tr>
-            <tr><td>Name & Address of Organization</td><td>SAMPLE</td></tr>
-            <tr><td>Inclusive Dates</td><td><div>SAMPLE</div><div class="small text-muted">Hours: SAMPLE</div></td></tr>
-            <tr><td>Position</td><td><div>SAMPLE</div></td></tr>
+            {foreach from= $emp item=voluntary_work}
+                <tr class="row-header"><td colspan="2">{$voluntary_work@iteration}</td></tr>
+                <tr><td>Name & Address of Organization</td><td>{$voluntary_work.organization_name}</td></tr>
+                <tr><td>Inclusive Dates</td><td><div>{$voluntary_work.date_from} to {$voluntary_work.date_to}</div><div class="small text-muted">Hours: {$voluntary_work.total_hours}</div></td></tr>
+                <tr><td>Position</td><td><div>{$voluntary_work.organization_position}</div></td></tr>
+            {/foreach}
         </table>
     </div>
 {else}
@@ -34,19 +36,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>SAMPLE</td>
-                        <td>SAMPLE</td>
-                        <td>SAMPLE</td>
-                        <td>SAMPLE</td>
-                        <td>SAMPLE</td>
-                        <td style="vertical-align: middle; text-align: center;">
-                            <form action="" method="POST"><input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="voluntary_no" value="1">
-                                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fe fe-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
+                    {foreach from= $emp item=voluntary_work}
+                        <tr>
+                            <td>{$voluntary_work.organization_name}</td>
+                            <td>{$voluntary_work.date_from}</td>
+                            <td>{$voluntary_work.date_to}</td>
+                            <td>{$voluntary_work.total_hours}</td>
+                            <td>{$voluntary_work.organization_position}</td>
+                            <td style="vertical-align: middle; text-align: center;">
+                                <form action="" method="POST"><input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="voluntary_no" value="1">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fe fe-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
                 </tbody>
             </table>
         </div>

@@ -4,7 +4,6 @@ namespace Controllers;
 use Database\DB;
 
 class DashboardController extends Controller {
-    public $user;
 
     public function __construct () {
         parent::__construct();
