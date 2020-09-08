@@ -11,7 +11,13 @@ class Profile {
 
     public static function info ($profile) {
         if (self::$employee) {
-            return DB::select ("SELECT * FROM $profile WHERE employee_id = ?", self::$employee['employee_id'])[0];
+            $stmt = '';
+            if ($profile == "tbl_employee_education") {
+                $stmt = " ORDER BY year_graduated";
+            } elseif ($profile == "tbl_employee_employment") {
+                $stmt = " ORDER BY date_from";
+            }
+            return DB::select ("SELECT * FROM $profile WHERE employee_id = ? $stmt", self::$employee['employee_id']);
         }
     }
 
