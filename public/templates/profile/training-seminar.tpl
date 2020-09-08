@@ -4,11 +4,13 @@
     </div>
     <div class="table-responsive">
         <table class="table card-table table-striped">
-            <tr class="row-header"><td colspan="2">1.</td></tr>
-            <tr><td>Title of Training</td><td>SAMPLE</td></tr>
-            <tr><td>Sponsored by</td><td>SAMPLE</td></tr>
-            <tr><td>No of hours</td><td><div>SAMPLE hour(s)<div class="small text-muted">SAMPLE</div></td></tr>
-            <tr><td>Type of LD</td><td>SAMPLE</td></tr>
+            {foreach from=$emp item=training_seminar} 
+                <tr class="row-header"><td colspan="2">{$training_seminar@iteration}</td></tr>
+                <tr><td>Title of Training</td><td>{$training_seminar.training_title}</td></tr>
+                <tr><td>Sponsored by</td><td>{$training_seminar.training_sponsor}</td></tr>
+                <tr><td>No of hours</td><td><div>{$training_seminar.training_hours} hour(s)<div class="small text-muted">{$training_seminar.training_from} {if $training_seminar.training_to != ''} to {$training_seminar.training_to} {/if}</div></td></tr>
+                <tr><td>Type of LD</td><td>{$training_seminar.training_type}</td></tr>
+            {/foreach}
         </table>
     </div>
 {else}
@@ -55,21 +57,23 @@
                     </tr>
                 </thead>
                 <tbody>
-                   <tr>
-                       <td>SAMPLE</td>
-                       <td>SAMPLE</td>
-                       <td>SAMPLE</td>
-                       <td>SAMPLE</td>
-                       <td>SAMPLE</td>
-                       <td>SAMPLE</td>
-                       <td style="vertical-align: middle; text-align: center;">
-                            <form action="" method="POST">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="training_no" value="1">
-                                <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fe fe-trash"></i></button>
-                            </form>
-                        </td>
-                    </tr>
+                    {foreach from=$emp item=training_seminar} 
+                        <tr>
+                            <td>{$training_seminar.training_title}</td>
+                            <td>{$training_seminar.training_from}</td>
+                            <td>{if $training_seminar.training_to == ''} {$training_seminar.training_from} {else} {$training_seminar.training_to} {/if}</td>
+                            <td>{$training_seminar.training_hours} hour(s)</td>
+                            <td>{$training_seminar.training_type}</td>
+                            <td>{$training_seminar.training_sponsor}</td>
+                            <td style="vertical-align: middle; text-align: center;">
+                                <form action="" method="POST">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="training_no" value="1">
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i class="fe fe-trash"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {/foreach}
                 </tbody>
             </table>
         </div>

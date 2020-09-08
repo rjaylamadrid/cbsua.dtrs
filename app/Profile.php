@@ -21,6 +21,18 @@ class Profile {
         }
     }
 
+    public static function getSalary ($salaryGrade, $salaryStep, $date_to='') {
+        if($date_to == '') {
+            $date_to = date('Y-m-d');
+        }
+        $salaryArray = DB::db("db_master2")->select ("SELECT step_increment FROM tbl_salary_grade WHERE salary_grade = ? AND date_implemented < ? ORDER BY no DESC", [$salaryGrade, $date_to])[0];
+        $salaryArr = explode(",", $salaryArray['step_increment']);
+        $salary = $salaryArr[$salaryStep - 1];
+        // print_f($salaryArray);
+        var_dump($salary);
+        return $salary;
+    }
+
     public static function get () {
         return self::$employee;
     }
