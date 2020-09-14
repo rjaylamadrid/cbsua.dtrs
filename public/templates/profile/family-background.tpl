@@ -37,7 +37,7 @@
         </table>
     </div>
 {else}
-    <form action="" method="POST">
+    <form action="{$server}{if $user.is_admin}/employees/save/{$employee.employee_id}/{$tab}{else}/save{/if}" method="POST">
         <input type="hidden" name="action" value="save_changes">
         <div class="form-group row btn-square">
             <label class="h4">Spouse's Information</label>
@@ -45,51 +45,51 @@
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseFirstname]" value="{$spouse.first_name}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][first_name]" value="{$spouse.first_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         <label class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseMiddlename]" value="{$spouse.middle_name}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][middle_name]" value="{$spouse.middle_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         <label class="form-label">Last Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseLastname]" value="{$spouse.last_name}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][last_name]" value="{$spouse.last_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-3">
                     <div class="form-group">
                         <label class="form-label">Ext Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseExtname]" value="{$spouse.ext_name}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][ext_name]" value="{$spouse.ext_name}">
                     </div>
                 </div>
                 <br />
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Occupation</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseWork]" value="{$spouse.occupation}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][occupation]" value="{$spouse.occupation}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Telephone No.</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseTelephone]" value="{$spouse.telephone_no}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][telephone_no]" value="{$spouse.telephone_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <label class="form-label">Employer/Business Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[SpouseEmployer]" value="{$spouse.employer}">
+                        <input type="text" class="form-control" name="employeeinfo[spouse][employer]" value="{$spouse.employer}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="form-group">
                         <div class="label-floating">
                             <label class="form-label">Business Address</label>
-                            <input type="text" class="form-control" name="employeeinfo[SpouseAddress]" value="{$spouse.business_address}">
+                            <input type="text" class="form-control" name="employeeinfo[spouse][business_address]" value="{$spouse.business_address}">
                         </div>
                     </div>
                 </div>
@@ -100,45 +100,51 @@
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">Father's Surname</label>
-                        <input type="text" class="form-control" name="employeeinfo[FatherLastname]" value="{$father.last_name}">
+                        <input type="text" class="form-control" name="employeeinfo[father][last_name]" value="{$father.last_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[FatherFirstname]" value="{$father.first_name}">
+                        <input type="text" class="form-control" name="employeeinfo[father][first_name]" value="{$father.first_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[FatherMiddlename]" value="{$father.middle_name}">
+                        <input type="text" class="form-control" name="employeeinfo[father][middle_name]" value="{$father.middle_name}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">Ext Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[FatherExtname]" value="{$father.ext_name}">
+                        <input type="text" class="form-control" name="employeeinfo[father][ext_name]" value="{$father.ext_name}">
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">Mother's Maiden Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[MotherLastname]" value="{$mother.last_name}">
+                        <input type="text" class="form-control" name="employeeinfo[mother][last_name]" value="{$mother.last_name}">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">First Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[MotherFirstname]" value="{$mother.first_name}">
+                        <input type="text" class="form-control" name="employeeinfo[mother][first_name]" value="{$mother.first_name}">
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-6 col-lg-3">
                     <div class="form-group">
                         <label class="form-label">Middle Name</label>
-                        <input type="text" class="form-control" name="employeeinfo[MotherMiddlename]" value="{$mother.middle_name}">
+                        <input type="text" class="form-control" name="employeeinfo[mother][middle_name]" value="{$mother.middle_name}">
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-3">
+                    <div class="form-group">
+                        <label class="form-label">Ext Name</label>
+                        <input type="text" class="form-control" name="employeeinfo[mother][ext_name]" value="{$father.ext_name}">
                     </div>
                 </div>
             </div>
@@ -154,14 +160,15 @@
                         </tr>
 
                         <tbody>
-                            {foreach from = $emp item = child }
+                            {foreach from = $emp item = child}
                                 {if $child.relationship == 0}
                                     <tr id="row">
-                                            <td><input type="text" class="form-control" name="first_name" value="{$child.first_name}"></td>
-                                            <td><input type="text" class="form-control" name="middle_name" value="{$child.middle_name}"></td>
-                                            <td><input type="text" class="form-control" name="last_name" value="{$child.last_name}"></td>
-                                            <td><input type="text" class="form-control" name="ext_name" value="{$child.ext_name}"></td>
-                                            <td><input type="text" class="form-control" name="birthdate" value="{$child.birthdate}"></td>
+                                            <input type="hidden" name="employeeinfo[child][{$child@iteration}][no]" value="{$child.no}">
+                                            <td><input type="text" class="form-control" name="employeeinfo[child][{$child@iteration}][first_name]" value="{$child.first_name}"></td>
+                                            <td><input type="text" class="form-control" name="employeeinfo[child][{$child@iteration}][middle_name]" value="{$child.middle_name}"></td>
+                                            <td><input type="text" class="form-control" name="employeeinfo[child][{$child@iteration}][last_name]" value="{$child.last_name}"></td>
+                                            <td><input type="text" class="form-control" name="employeeinfo[child][{$child@iteration}][ext_name]" value="{$child.ext_name}"></td>
+                                            <td><input type="text" class="form-control" name="employeeinfo[child][{$child@iteration}][birthdate]" value="{$child.birthdate}"></td>
                                             <td style="vertical-align: middle; text-align: center;"><a class="btn btn-outline-danger btn-sm"><i class="fe fe-trash"></i></a></td>
                                     </tr>
                                 {/if}

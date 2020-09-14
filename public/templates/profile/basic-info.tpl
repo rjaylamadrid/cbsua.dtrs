@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <input type="file" id="file-input" class="" name="profile_picture" value="img/profile_temp.jpeg" style="width:13rem">
+                        <input type="file" id="file-input" class="" name="employeeinfo[employee_picture]" value="img/profile_temp.jpeg" style="width:13rem">
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-8" style="padding-right: 0px; padding-left: 0px;">
@@ -47,33 +47,33 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label class="form-label">First Name</label>
-                                <input type="text" class="form-control" name="employeeinfo[FirstName]" value="{$emp.first_name}">
+                                <input type="text" class="form-control" name="employeeinfo[first_name]" value="{$emp.first_name}">
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Middle Name</label>
-                                <input type="text" class="form-control" name="employeeinfo[MiddleName]" value="{$emp.middle_name}">
+                                <input type="text" class="form-control" name="employeeinfo[middle_name]" value="{$emp.middle_name}">
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Last Name</label>
-                                <input type="text" class="form-control" name="employeeinfo[LastName]" value="{$emp.last_name}">
+                                <input type="text" class="form-control" name="employeeinfo[last_name]" value="{$emp.last_name}">
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group">
                                 <div class="label-floating">
                                     <label class="form-label">Extension Name (Jr,Sr)</label>
-                                    <input type="text" class="form-control" name="employeeinfo[ExtName]" value="{$emp.ext_name}">
+                                    <input type="text" class="form-control" name="employeeinfo[ext_name]" value="{$emp.ext_name}">
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6">
                             <div class=" label-floating">
                                 <label class="form-label" for="gender">Gender</label>
-                                <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[Gender]">
+                                <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[gender]">
                                     <option value="" disabled></option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -83,13 +83,13 @@
                         <div class="col-sm-12 col-md-6">
                             <div class="form-group label-floating">
                                 <label class="form-label">Birthday</label>
-                                <input type="date" class="form-control" name="employeeinfo[BirthDate]" value="{$emp.birthdate}" max="">
+                                <input type="date" class="form-control" name="employeeinfo[birthdate]" value="{$emp.birthdate}" max="">
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="form-group label-floating">
                                 <label class="form-label">Birthplace</label>
-                                <input type="text" class="form-control" name="employeeinfo[BirthPlace]" value="{$emp.birthplace}">
+                                <input type="text" class="form-control" name="employeeinfo[birthplace]" value="{$emp.birthplace}">
                             </div>
                         </div>
                     </div>
@@ -198,7 +198,7 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label" for="civil_stat">Marital Status</label>
-                        <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[MaritalStatus]">
+                        <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[marital_status]">
                             <option value="" disabled>Civil Status</option>
                             <option value="Single" {if $emp.marital_status == 'Single'} selected {/if}>Single</option>
                             <option value="Married" {if $emp.marital_status == 'Married'} selected {/if}>Married</option>
@@ -210,7 +210,7 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label" for="civil_stat">Citizenship</label>
-                        <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[Citizenship]">
+                        <select  class="selectpicker form-control" data-style="btn btn-success btn-round" name="employeeinfo[citizenship]">
                             <option value="" disabled selected="">Select Citizenship</option>
                             <option value="Filipino" {if $emp.citizenship == "Filipino"} selected {/if}>Filipino</option>
                             <option value="Dual Citizenship - by birth">Dual Citizenship - by birth</option>
@@ -231,49 +231,49 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Height (m)</label>
-                        <input  type="text"  class="form-control" name="employeeinfo[Height]" value="{$emp.height}">
+                        <input  type="text"  class="form-control" name="employeeinfo[height]" value="{$emp.height}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Weight (kg)</label>
-                        <input class="form-control" type="text" name="employeeinfo[Weight]" value="{$emp.weight}">
+                        <input class="form-control" type="text" name="employeeinfo[weight]" value="{$emp.weight}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Blood Type</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[BloodType]" value="{$emp.blood_type}">
+                        <input readonly class="form-control" type="text" name="employeeinfo[blood_type]" value="{$emp.blood_type}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">GSIS ID No.</label>
-                        <input readonly type="text" class="form-control" name="employeeinfo[GSISNo]" value="{$emp.gsis_no}">
+                        <input readonly type="text" class="form-control" name="employeeinfo[gsis_no]" value="{$emp.gsis_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">PAG-IBIG ID No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[PagibigNo]" value="{$emp.pagibig_no}">
+                        <input readonly class="form-control" type="text" name="employeeinfo[pagibig_no]" value="{$emp.pagibig_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">PHILHEALTH No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[PhilhealthNo]" value="{$emp.philhealth_no}">
+                        <input readonly class="form-control" type="text" name="employeeinfo[philhealth_no]" value="{$emp.philhealth_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">SSS No.</label>
-                        <input readonly  type="text" class="form-control" name="employeeinfo[SSSNo]" value="{$emp.sss_no}">
+                        <input readonly  type="text" class="form-control" name="employeeinfo[sss_no]" value="{$emp.sss_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">TIN No.</label>
-                        <input readonly class="form-control" type="text" name="employeeinfo[TINNo]" value="{$emp.tin_no}">
+                        <input readonly class="form-control" type="text" name="employeeinfo[tin_no]" value="{$emp.tin_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
@@ -285,19 +285,19 @@
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Email Address</label>
-                        <input type="email"  class="form-control" name="employeeinfo[EmailAddress]" value="{$emp.email_address}">
+                        <input type="email"  class="form-control" name="employeeinfo[email_address]" value="{$emp.email_address}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Mobile Number</label>
-                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[CellphoneNo]" name="employeeinfo[CellphoneNo]" value="{$emp.cellphone_no}">
+                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[cellphone_no]" value="{$emp.cellphone_no}">
                     </div>
                 </div>
                 <div class="col-sm-12 col-lg-4">
                     <div class="form-group label-floating">
                         <label class="form-label">Telephone Number</label>
-                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[TelephoneNo]"  name="employeeinfo[TelephoneNo]" value="{$emp.telephone_no}">
+                        <input class="form-control bfh-phone" type="tel" name="employeeinfo[telephone_no]"  value="{$emp.telephone_no}">
                     </div>
                 </div>
             </div>

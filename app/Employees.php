@@ -15,13 +15,11 @@ class Employees extends EmployeesController {
 
         if($view == 'employment')
         {
-            // $emp = Profile::getSalary($workExperience['salary_grade'], $workExperience['salary_step'], $workExperience['date_to']);
             $ctr=0;
             foreach($emp as $workExperience) {
                 $empSalary[$ctr] = Profile::getSalary($workExperience['salary_grade'], $workExperience['salary_step'], $workExperience['date_to']);
                 $ctr++;
             }
-            // print_r($emp);
         }
         $this->view->display ('profile', ["employee" => Profile::$employee, "emp" => $emp, "tab" => $view]);
     }
@@ -34,7 +32,7 @@ class Employees extends EmployeesController {
     }
 
     public function save ($id, $view = 'basic-info') {
-        
+        // $empUpd = Profile::saveChanges($id,$_POST['employeeinfo'],$view);
         header ("location: /employees/profile/$id/$view");
     }
 }
