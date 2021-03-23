@@ -8,7 +8,7 @@ class Employees extends EmployeesController {
         $this->view->display ('admin/employees', ["stats" => $this->stats, "employees" => $this->employees()->all()]);
     }
 
-    public function profile ($id, $view = 'basic-info') {
+    public function profile ($id = NULL, $view = 'basic-info') {
         $id = $id ? $id : $this->user['employee_id'];
         $table = $view == 'basic-info' ? 'tbl_employee' : 'tbl_employee_'.str_replace ("-", "_", $view);
         $emp = Profile::employee($id)->info($table);
